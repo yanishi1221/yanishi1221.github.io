@@ -1,156 +1,124 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@1,600;1,800&family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @font-face{font-family: Aemstel;src: url('Aemstel-LineOutside.otf');}
 @font-face{font-family: Montserrat-Light;src: url('Montserrat-Light.ttf')}
-    body{background-image:linear-gradient(#212121,#373737);}
-    #headerbutton a{
-        text-decoration: none;
-        font-family: 'Nunito Sans', sans-serif;
-        color:#8EEBEF;
-        font-size:15px}
-    #button a{
-        text-decoration: none;
-        font-family: 'Nunito Sans', sans-serif;
-        color:#8EEBEF;
-        font-size:15px}
-    #frontpage{
-        background-image:url(background.png);
-        border-radius:50px;
-        overflow:hidden;
-        height:700px;
-        position:relative;
-        border-radius:50px;
-        box-shadow:  41px 41px 82px #0d0d0d, -41px -41px 82px #353535;}
-    #aboutme{
-        background-size: cover;
-        background-image: url(aboutmenonehover.png);
+
+    /* Navbar/Menu Styles */
+    .navbar {
+      z-index: 10;
+      display: flex;
+      position: fixed;
+      height: 60px;
+      width: 60px;
+      background-color: #2e2c2f;
+      right: 2.4%;
+      margin: 30px;
+      border-radius: 60px;
+      box-shadow: 0 10px 20px 2px rgba(0, 0, 0, 0.1);
+      align-items: center;
+      cursor: pointer;}
+    .navbar::before,
+    .navbar::after {
+      content: "";
+      display: block;
+      height: 3px;
+      width: 24px;
+      border-radius: 2px;
+      background-color: #ffffff;
+      margin-bottom: 8px;
+      transition: 0.3s;
+    }
+    .navbar::before {
+      margin-top: 20px;}
+    .navbar.open-menu::before {
+      transform: rotate(-135deg);
+      margin-bottom: -1px;}
+    .navbar.open-menu::after {
+      transform: rotate(-45deg);
+      margin-top: -1px;}
+    .menu {
+      width: 20vw;
+      height: 100vh;
+      position: fixed;
+        left:80%;
+        top:0;
+      display: flex;
+      align-items: center;
+      visibility: hidden;
+      background-image:linear-gradient(to right, rgba(33,33,33,0.85), rgba(55,55,55,0.85));
+      z-index: 9;
+      opacity: 0;
+      transition: 0.3s;}
+    #display{
+         font-family: 'Bebas Neue', cursive;
+      font-weight: normal;
+      font-size: 1.4em;
+      padding: 0;
+      margin: 10px 0;
+        text-align:left;
+        line-height:200%;}
+    #display a{color:white; font-size: 1em;}
+    .menu.open-menu {
+      visibility: visible;
+      opacity: 1;}
+    .menu-inner {
+      max-width: 1440px;
+      width: 100%;
         color:white;
-        position:absolute;
-        bottom:0;right:0;
-        overflow:none; 
-        height:40%;width:70%}
-    #aboutme:hover{
-        transition:0.5s;
-        display: block;
-        margin-bottom: 0;
-        height:50%;}
-    #aboutme:hover{
-        visibility: visible;
-        display: block;
-        writing-mode: none;}
-    #aboutmecontext{
-        padding:20px;
-        font-family: 'Nunito Sans', sans-serif;
-        color:aliceblue;
-        font-size:30px;}
-    #topelements{
-        float:left;
-        overflow:none;
-        border-radius:50px;
-        margin-top:-180px;
-        background-repeat: no-repeat;
-        background-position: left;
-        background-clip: border-box;
-        background-image: url(topone.png);
-        height:180px;width:100%}
-     #maincontainer{
-        border-radius:50px;
-        margin:20px 20px;}
-    #maincontainer1{
-        border-radius:50px;
-        margin:100px 20px;}
-    #headbuttongroup{
-        position:absolute;
-        top:5%;
-        right:3%;}
-    #headerbutton{
-        width:150px;
-        height:30px;
-        background-color:#212121;
-        margin-right:10px;
+        font-family: 'Bebas Neue', cursive;
+      margin: 0 auto;
+      padding: 60px;}
+    .menu-link {
+      color: white;
+      text-decoration: none;
+      border-bottom: 2px solid #2e2c2f;}
+    .menu-link:hover {border-bottom: 0;}
+    .menu-inner ul,
+    .menu-inner li {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+      font-size: 24px;}
+    .columns {
+      flex-direction: column;}
+/*front page*/
+    body{background-color: #212121}
+h1{color:white}
+    #frontpage{
+        background-image:url(background.jpg);
+        height:80%;
+        width:97%;
+        margin-left:1.5%;
+        box-shadow:  41px 41px 82px #0d0d0d, -41px -41px 82px #353535;}
+    #overlayBox{
+        background-color:black;
+        opacity:0.5;
         float:right;
-        border-radius:40px;
-        font-size:15px;
-        padding-top: 7px;
-        text-align:center;
-        border:solid 2px #8EEBEF;
-        font-family: 'Nunito Sans', sans-serif;
-        color:#8EEBEF}  
-    #headbuttongroup{
-        position:absolute;
-        top:5%;
-        right:3%;}
-    #headerbutton:hover{
-        box-shadow: inset 4px 4px 8px #1a1a1d, inset -4px -4px 8px #2c2e33;
-        transition:0.3s}
-    #headerbutton:hover #headerbuttonclick{
-        visibility: visible;
-        display: block;}
-    #headerbuttonclick{
-        visibility:hidden;
-        width:150px;
-        height:34px;
-        margin-top:-28px;margin-right:0px;
-        opacity:1;
-        float:right;
-        border-radius:40px;
-        box-shadow:inset 2px 2px 10px #68acae;
-        font-size:20px;
-        padding-top: 5px;
-        text-align:center;
-        font-family: 'Nunito Sans', sans-serif;}
+        width:10%;height:100%;}
     #name{
         position:absolute;
         float:left;
-        font-size:100px;
-        color:aqua;font-family: Aemstel;
-        left:16%;bottom:33%}
-    #aboutmephoto{
-        border-radius:100px;
-        background-image: url(grayheadimage.png);
-        background-size: cover;
-        margin:50px 0 50x 0;
-        width:200px;height:200px;}
-    #circle{
-        padding:25px 0 0 12.5px;
-        margin:50px 7% 0 15%;
-        box-shadow:10px 10px 30px #68C5C5, -10px -10px 50px #68C5C5;
-        float:left;
-        width:212.5px;height:200px; border-radius:150px;border: 2px solid #68C5C5}
-    .rightbar{
-        width:45%;
-        float:left;
-        margin-left:5%;}
-    .aboutmecontent{
-        font-family:Montserrat-Light; font-size:22px;
-        line-height:150%;
-        color:white;}
+        font-size:130px;
+        color:white;font-family: Aemstel;
+        left:5%;bottom:25%}
+   #container{
+        border-radius:20px;
+        border:white 2px solid;
+        left:100px;
+       position:absolute;
+       left:17.5%;
+        width:65%}
     /*fonts*/
-    .bus{color:#5ed1d3}
-    .des{color:#68C5C5}
-    .tech{color:#82E0C5}
-    #myworktitle{
-        color:#5fced0;
-        padding-left:40px;padding-top:50px;
-        font-size:50px;
-        line-height:70px;
-        font-family: 'Nunito Sans', sans-serif;}
     .myworkbox{
         width:80%;
         left:10%;
         position:relative;}
-    #boxleft{
-        width:48%;
-        float:left;}
-    #boxright{
-        margin-top:5%;
-        width:48%;
-        float:left;}
     .workbox{
-        width:460px;height:460px;
+        width:45%;height:460px;
         float:left;
         margin-top:50px;
         overflow:hidden;
-        border-radius:50px;
+        border-radius:0px;
         background: linear-gradient(315deg, #212121, #373737);
         box-shadow:34px 34px 64px #0d0d0d, -34px -34px 64px #353535;}
     .workbox:hover{
@@ -167,43 +135,6 @@
         font-weight:100;
         font-size:20px;
         padding:30px;}
-    #button{
-        width:150px;
-        height:30px;
-        background-color:none;
-        margin:20px 30px;
-        float:left;
-        border-radius:40px;
-        font-size:15px;
-        padding-top: 7px;
-        text-align:center;
-        border:solid 2px #8EEBEF;
-        font-family: 'Nunito Sans', sans-serif;
-        color:#8EEBEF}  
-    #button:hover{
-        box-shadow: inset 4px 4px 8px #1a1a1d, inset -4px -4px 8px #2c2e33;
-        transition:0.3s}
-    #button:hover #buttonclick{
-        visibility: visible;
-        display: block;}
-    .AMpage{ 
-        color:aqua;
-        margin-left:250px;
-        font-family: Aemstel;
-        font-size:40px}
-    #buttonclick{
-        visibility:hidden;
-        width:150px;
-        height:34px;
-        margin-top:-28px;margin-right:0px;
-        opacity:1;
-        float:right;
-        border-radius:40px;
-        box-shadow:inset 2px 2px 10px #68acae;
-        font-size:20px;
-        padding-top: 5px;
-        text-align:center;
-        font-family: 'Nunito Sans', sans-serif;}
     footer{
         height:200px;
         margin-top:50px;
@@ -215,32 +146,5 @@
         font-family: 'Nunito Sans', sans-serif;
         font-size:30px;}
     .emp{color:#68C5C5; font-style: italic;}
-    #photobar{
-            width:80%;
-            border-radius:20px;
-            box-shadow:  20px 20px 60px #1e1e1e, 
-             -20px -20px 60px #242424;
-            background-image:linear-gradient(#212121,#373737);
-            padding:2% 0;
-            margin-left:10%; }
-        #ABmainphoto{
-            width:60%;
-            height:61%;
-            margin-left:20%; }
-        #bigphoto{
-            width:70%;
-            margin-top:5%;
-            margin-left:15%;}
-        .thumbnail{
-            width:15%;
-            height:13%;
-            opacity: 0.5;
-            margin-left:4%;}
-        #caption{
-            width:40%;text-align:right;margin-top:-6F%;margin-left:52%;
-            padding:10px 0px;
-            color:white;
-            font-family: 'Nunito Sans', sans-serif;
-            border-radius:20px;
-            font-size:22px;
-            text-align:center;}
+    
+        
