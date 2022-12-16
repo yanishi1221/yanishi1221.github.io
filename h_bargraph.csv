@@ -1,0 +1,6 @@
+City,Value,CorrectValue,Population,Area,GDP,TOP140,Image
+Beijing 北京,.1,.1,21.8 Million,6336 mi²,$23495,34,./images/DragMapBeijing.png
+Shanghai 上海,.1,.09,24.9 Million,2448 mi²,$22199,15,./images/DragMapShanghai.png
+Sichuan 四川,.1,.0306,83.7 Million,187645 mi²,$8275,8,./images/DragMapSichuan.png
+Shanxi 山西,.1,.0303,34.8 Million,60502 mi²,$7203,2,./images/DragMapShanxi.png
+GanSu 甘肃,.1,.0251,24.9 Million,164402 mi²,$5225,1,./images/DragMapGansu.png

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/topojson.v2.min.js"></script>
+  <script src="https://d3js.org/d3-queue.v3.min.js"></script>
+  <link href="vbargraph.css" rel="stylesheet">
+  <link href="stylesheets2.css" rel="stylesheet">
+  <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.min.js"></script>
+  <style>
+    svg {
+      width: 100%;
+      height: 100%;
+      position: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    div.tooltip {
+      color: #222;
+      background: #fff;
+      border-radius: 3px;
+      box-shadow: 0px 0px 2px 0px #a6a6a6;
+      padding: .2em;
+      text-shadow: #f5f5f5 0 1px 0;
+      opacity: 0.9;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <section id='scrolly-side'>
+    <div class='scrolly'>
+      <div class='sticky'>
+        <select id="d3-dropdown" class="dropbtn">
+          <option value="overall_rates">Overall Admission Rates</option>
+          <option value="tierone_rates">Tier 1 School Admission Rates</option>
+          <option value="tiertwo_rates">Tier 2 School Admission Rates</option>
+          <option value="tierthree_rates">Tier 3 School Admission Rates</option>
+          <option value="tierfour_rates">Tier 4 School Admission Rates</option>
+          <option value="tierone_schools">Number of Tier 1 Schools</option>
+          <option value="population">Population</option>
+        </select>
+        <p id="selected-dropdown"></p>
+        <div id="mapAbsoulteDiv" style="position:relative">
+      
+          <div id="vis"></div>
+        </div>
+        <div class="tooltip"></div>
+      
+      </div>
+      <article>
+        <div id="map1" class='step mapTextContent' data-width='0%' data-index='0' >
+            <h3>Unbalanced Economy Performance and Education Expenditure</h3>
+            <div class="gap50"></div>
+            <p>In China, the economic performances differ from provinces to provinces. The GDP/Capita provides a
+                basic measure of the value of output per person.
+                <br>The volume of education expenditure is directly correlated with the economic prowess of the
+                region.
+                <br>The education expenditure is unbalanced distributed between urban centres and the least
+                developed
+                regions. This applies both in the sense of the distribution of the national budget across regions,
+                and also in terms of different regions’ varying abilities in raise local funding for education
+                institutions.
+            </p>
+        </div>
+        <div id="map2" class='step mapTextContent' data-width='20%' data-index='1'>
+            <div class="gap50"></div>
+            <h3>Unbalanced Higher Education Instituitions</h3>
+            <div class="gap50"></div>
+            <p>As you can see, the number of the Double Frst Class Universities strongly correlates with the
+                education expenditures of each provinces</p>
+        </div>
+        <div id="map3" class='step mapTextContent' data-width='40%' data-index='2'>
+            <div class="gap50"></div>
+            <h3>Unbalanced Higher Education Instituitions</h3>
+            <div class="gap50"></div>
+            <p>Once we take in consideration of population, it looks more inbalanced.</p>
+        </div>
+        <div id="map4" class='step mapTextContent' data-width='60%' data-index='2'>
+            <div class="gap50"></div>
+            <h3>Unbalanced Enrollment Rates</h3>
+            <div class="gap50"></div>
+            <p>As we can see the enrollment rates are highly correlated with the number of Double First Class
+                Universities in China. This is because the local governments and the universities they fund have an
+                interest in prioritising the access of students with local “hukou” status; The higher the component
+                of municipal finance is in the funding of a university, the higher the bargaining power the local
+                government would have in resisting the national guidelines on opportunity equality.</p>
+        </div>
+        <div id="map5" class='step mapTextContent' data-width='80%' data-index='2'>
+            <div class="gap50"></div>
+            <h3>Elite Capture</h3>
+            <div class="gap50"></div>
+            <p>Some city/provinces might change, but the the economic performaces or enrollment rates are always
+                high among these cities. Inequalities are instituted and defended by the privileged classes in order
+                to maintain their exclusive hold over scare education resources, which is a source of their
+                privileged status. Education in China may face a state of “elite capture”, where a select elite
+                which benefit from current inequalities in the distribution of education resources use their power
+                to defend their vested interest in maintaining the status quo</p>
+        </div>
+
+    </article>
+    </div>
+  </section>
+
+
+
+  <script src="map.js"></script>
+  <script>
+    map();
+    scroller();
+  </script>
+
+</body>

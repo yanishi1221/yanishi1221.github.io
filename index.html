@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Education Inequality</title>
+    <link href="stylesheets.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4e6dc5e9e5.js" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <script src="https://d3js.org/d3-queue.v3.min.js"></script>
+    <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script> -->
+    <meta charset="utf-8">
+
+</head>
+
+<body>
+
+    <section id="S0" class="distributeVertical">
+        <div class="width80 centerHorizontal">
+            <h1>Education Inequality in Mainland China</h1>
+            <h4>A Visual Data Essay About the Distribution of Education Resources in the Mainland China</h4>
+            <h4>August 2022</h4>
+            <div class="gap50"></div>
+            <button onclick="toPage('S1')" class="BT" id="B0" destination="S1">Next <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </section>
+
+    <section id="S1" class="hidden distributeVertical centerVertical">
+        <div class="width40 centerHorizontal">
+            <p>Before I start to introduce the data, let's play a <strong>GAME</strong>.
+                Please pick one child below.
+                Each of them were born in 1999. Let's see which university this child will get into.</p>
+            <div class="gap50"></div>
+            <div id='ChildBox' class="spaceAround distributeHorizontal gap40 width80 centerHorizontal">
+                <button class="child A " id="ChildA" value="0" onclick="toPage('S2')">
+                    <img src="./images/np_student_2042371_000000 1.svg" width="50px">
+                    A
+                </button>
+                <button class="child B " id="ChildB" value="1" onclick="toPage('S2')">
+                    <img src="./images/np_student_2042371_000000 1.svg" width="50px">
+                    B
+                </button>
+                <button class="child C " id="ChildC" value="2" onclick="toPage('S2')">
+                    <img src="./images/np_student_2042371_000000 1.svg" width="50px">
+                    C
+                </button>
+            </div>
+            <div class="gap50"></div>
+            <div class="followedbuttonSection">
+                <button onclick="toPage('S0')" class="BT"><i class="fa-solid fa-arrow-left"></i> Back </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="S2" class='distributeHorizontal hidden'>
+        <div class="studentsBio distributeVertical gap40">
+            <div class="bgInfor">
+                <h6>Born Place</h6>
+                <h4 class="bgCity">Yuncheng, Shanxi</h4>
+            </div>
+            <div class="bgInfor">
+                <h6># of Chinese Top 140 Universities</h6>
+                <h4 class="bgSchools">0</h4>
+            </div>
+            <div class="bgInfor">
+                <h6>GDP/Capita</h6>
+                <h4 class="bgInforGDP"></h4>
+            </div>
+            <div class="bgInfor">
+                <h6>Household Income / Person</h6>
+                <h4 class="bgInforIncome"></h4>
+            </div>
+        </div>
+        <div class="studentsStory">
+            <div class="gamePicture">
+                <img src="./images/MapYuncheng.png" alt="Cheng Du City View">
+            </div>
+            <div class="gameDescription">
+                <p id="childDescriptionFirst"> Your Child, A, was born in <span class='highlight bgCity'>Yuncheng,
+                        Shanxi</span>.
+                    <br>This is a small town. There are <span class='highlight bgSchools'>0 </span>Chinese Top 140
+                    Universities in your city.
+                </p>
+                <p id="childDescriptionSecond" style="display: none;">
+                    In your city, the GDP/person is
+                    <span class='highlight bgInforGDP'> $6,300 </span>,
+                    which is below Chinese average ones --
+                    <span class='highlight bgInforHousehold'> $12,556 </span>.
+                    <br>Your family annual income/person is <span class='highlight'> $4,800</span>.
+                </p>
+                <p id="childDescriptionThird" style="display: none;">
+
+                </p>
+
+
+                <div class="buttonSection">
+                    <button id="bioBack" onclick="toPage('S1')" class="BT"><i class="fa-solid fa-arrow-left"></i>
+                        Back </button>
+                    <button id="bioNext2" class="BT">Next <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="S3" class="hidden">
+        <div class="gap50"></div>
+        <div class="centerHorizontal width80">
+            <div class="distributeHorizontal gap40">
+                <p>
+                    Here are how your child’s backgrounds and study habits compared with the other two kids.
+                </p>
+            </div>
+
+            <div class="centerHorizontal">
+                <table>
+                    <colgroup id="columnGroup">
+                        <col>
+                        <col id='ColChild0' class="selectColumn">
+                        <col id='ColChild1'>
+                        <col id='ColChild2'>
+                    </colgroup>
+                    <thead>
+                        <tr id="unversity">
+                            <th>&nbsp;</th>
+                            <th class="paddingtop">
+                                <div>
+                                    <img src="./images/Ximen.png" width="80%">
+                                </div>
+                            </th>
+                            <th class="paddingtop">
+                                <div>
+                                    <img src="./images/Donghua.png" width="80%">
+                                </div>
+                            </th>
+                            <th class="paddingtop">
+                                <img src="./images/Tshinghua.png" width="80%">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="tablefirstline">
+                            <td> <img src="./images/Frame 262.svg" style="height:200px"></td>
+                            <td class="paddingtop">
+                                <div class="child A centerHorizontal">
+                                    <img src="./images/np_student_2042371_000000 1.svg" width="50px">
+                                    A
+                                </div>
+                            </td>
+                            <td class="paddingtop">
+                                <div class="child B centerHorizontal">
+                                    <img src="./images/np_student_2042371_000000 1.svg" width="50px">
+                                    B
+                                </div>
+                            </td>
+                            <td class="paddingtop noneRight">
+                                <div class="child C centerHorizontal">
+                                    <img src="./images/np_student_2042371_000000 1.svg" width="50px">
+                                    C
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Born City</td>
+                            <td>Yuncheng, Shanxi</td>
+                            <td>Chengdu, Sichuan</td>
+                            <td class="noneRight">Beijing,Beijing</td>
+                        </tr>
+                        <tr>
+                            <td>GDP/Person</td>
+                            <td>$7203</td>
+                            <td>$8275</td>
+                            <td class="noneRight">$23495</td>
+                        </tr>
+                        <tr>
+                            <td>Household Income/Person</td>
+                            <td>$6300</td>
+                            <td>$14300</td>
+                            <td class="noneRight">$28300</td>
+                        </tr>
+                        <tr>
+                            <td># of Chinese Top 140 Universities</td>
+                            <td>2</td>
+                            <td>8</td>
+                            <td class="noneRight">34</td>
+                        </tr>
+                        <tr>
+                            <td>Average class-size</td>
+                            <td>64</td>
+                            <td>36</td>
+                            <td class="noneRight">24</td>
+                        </tr>
+                        <tr>
+                            <td>Studying Hours</td>
+                            <td>15</td>
+                            <td>13</td>
+                            <td class="noneRight">11</td>
+                        </tr>
+                        <tr>
+                            <td>Studing Habits</td>
+                            <td>Yuncheng, Shanxi</td>
+                            <td>Chengdu, Sichuan</td>
+                            <td class="noneRight">Beijing,Beijing</td>
+                        </tr>
+                        <tr>
+                            <td class="nonebottom">Parents' Education Level</td>
+                            <td class="nonebottom">High Schools</td>
+                            <td class="nonebottom">Four-year Colleges</td>
+                            <td class="noneRight nonebottom">Top 50 Colleges in China</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+        <div id="popup" class="slider">
+            <h4 id="popupContent1">
+                Does the result meet your expectations?
+            </h4>
+            <p id="popupContent2">
+                Actually ABC are three of my friends. By then, I was so confused that why the kid used the longest time
+                to study doesn’t get into the best school. Thus, I decided to build this data story, to <br> 1.
+                Visualize the Inequality of Chinese Education System<br> 2. Discover factors contribute to the Education
+                Inequality
+            </p>
+            <row>
+                <button id='popupYes' class="popupBtn">
+                    Yes, it does.
+                </button>
+                <button id='popupNo' class="popupBtn">
+                    No, it doesn't.
+                </button>
+            </row>
+        </div>
+
+        <div class="buttonSection">
+            <button onclick="toPage('S2')" id='tableBack1' class="BackBT"><i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+            <button id='tableNext1' class="BT">Next <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </section>
+
+    <section id="S4" class="hidden distributeVertical centerVertical">
+        <div class="width60 centerHorizontal">
+            <h2>Chapter 1: Higher Education System in the Mainland China</h2>
+            <div class="gap50">
+            </div>
+            <p>To understand inequality, we need to first understand how does Higher Education System work in the
+                Mainland China</p>
+        </div>
+        <div class="buttonSection">
+            <button onclick="toPage('S3')" class="BT"><i class="fa-solid fa-arrow-left"></i> Back </button>
+            <button onclick="toPage('S5')" class="BT">Next <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </section>
+
+    <section id="S5" class="hidden distributeHorizontal">
+        <div class="width50 border"> <img src="./images/Gaokao.jpg" alt=""></div>
+        <div class="width50 border rightContent">
+            <div class="titleBox">
+                <h3 class="textCenter">Gāo Kǎo</h3>
+                <h1 class="textCenter">高考</h1>
+                <h3 class="textCenter">National Higher Education Entrance Examination</h3>
+            </div>
+            <div class="gap50"></div>
+            <p>In China, the admission decision is only based on the final exam
+                -- the National Higher Education Entrance Examination, known colloquially as the Gaokao.
+                Every June, students from around the country take the exam, in the province of
+                their household registration, which is typically the place they born at.
+                Crucially, most provinces administer its own exam, so the exam is not a uniform,
+                nationwide test. Colleges also set quotas for each province and later admit all top
+                scorers who expressed interest in their institution.</p>
+            <div class="buttonSection">
+                <button onclick="toPage('S4')" class="BT"><i class="fa-solid fa-arrow-left"></i> Back </button>
+                <button onclick="toPage('S6')" class="BT">Next <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="S6" class="hidden">
+        <div class="gap50"></div>
+        <div class="width80 centerHorizontal">
+            <p>Among all kids born in 1999,</p>
+            <h1 id="percents">98% </h1>
+            <p> will get to the Elementary School</p>
+            <div class="gap50"></div>
+            <div id="grid"></div>
+        </div>
+        </div>
+        <div class="buttonSection"> <button id="changeColor">Next</button></div>
+
+        </div>
+        <script src="grid.js"></script>
+        </div>
+    </section>
+
+    <section id="S7" class="hidden distributeHorizontal">
+        <div class="width50 border">
+            <img src="./images/Top140.png" alt="">
+        </div>
+        <div class="width50 border rightContent">
+            <div class="titleBox">
+                <h3 class="textCenter">Shuāng Yī Liú Dà Xué</h3>
+                <h1 class="textCenter">双一流大学</h1>
+                <h3 class="textCenter">Double First Class University (Chinese Top 140 Universities)</h3>
+            </div>
+            <div class="gap50"></div>
+            <p>To promote the construction of world first class universities in China, Chinese governments released
+                Double First Class University Plan. The 140 universities(about 5% of all universities) under this plan
+                will receive more larger funds to improve facilities, build new research centers, host international
+                conferences, and attract world-renowned faculty and visiting scholars. Among these schools, two of them
+                ranked U.S. New World University Top 50, and 11 of them ranked Top 200.
+
+                In China, alumni from these double first classes universities will have more competitive advantages
+                while hunting jobs or seeking promotions. Some big companies only hire new graduates from these
+                universties</p>
+            <div class="buttonSection">
+                <button onclick="toPage('S6')" class="BT"><i class="fa-solid fa-arrow-left"></i> Back </button>
+                <button onclick="toPage('S8')" class="BT">Next <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="S8" class="hidden distributeHorizontal">
+        <div class="width50 border">
+            <img src="./images/Hukou.jpg" alt="">
+        </div>
+        <div class="width50 border rightContent">
+            <div class="titleBox">
+                <h3 class="textCenter">Hù Jí</h3>
+                <h1 class="textCenter">户籍</h1>
+                <h3 class="textCenter">Household Residency</h3>
+            </div>
+            <div class="gap50"></div>
+            <p>In China, each new born baby needs to register their household residency at the local government, which
+                usually depends on their parent’s residency. In most cases, students could only go to school and take
+                the college entrance exam in their registered city/province. The test is different in each
+                city/province.</p>
+            <div class="buttonSection">
+                <button onclick="toPage('S7')" class="BT"><i class="fa-solid fa-arrow-left"></i> Back </button>
+                <button onclick="toPage('S9')" class="BT">Next <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="S9" class="hidden distributeVertical centerVertical">
+        <div class="width40 centerHorizontal">
+            <p>Do you think the chance to get in these double firs class universities are same or not for students who
+                have different household residency?</p>
+            <div class="gap50"></div>
+
+            <div class="gap50"></div>
+            <div class="followedbuttonSection">
+                <button onclick="toPage('S8')" class="BT"><i class="fa-solid fa-arrow-left"></i> Back </button>
+                <button onclick="toPage('S10')" class="BT">Next <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="S10" class="hidden">
+        <div class="centerHorizontal width80">
+            <p>Given that the admisssion rates to get in to Double First Class Universities with Beijing residency in
+                10% (Among all students take the test).
+                What do you think the admission rates are in other cities/provinces listed below?
+                Drag the bar on the graph to play around.</p>
+            <div class="gap50"></div>
+            <script src="dragGraph.js"></script>
+            <div id="drag_graph">
+                <div id="DraginformationArea">
+                    <div id="dragMap">
+                        <img src="./images/DragMapBeijing.png" alt="" height="100%" class="distributeHorizontal">
+                    </div>
+                    <div class="dragInfoContent">
+                        <h4 id="city">Beijing 北京</h4>
+                        <div class="distributeHorizontal">
+                            <div id="drag_info_pop_groups">
+                                <h4>Population</h4>
+                                <div id="drag_info_pop">21 Million</div>
+                            </div>
+                            <div id="drag_info_area_groups">
+                                <h4>Population</h4>
+                                <div id="drag_area_pop">21 Million</div>
+                            </div>
+                        </div>
+                        <div id="drag_info_gpa">
+                            <h4>GPA</h4>
+                            <div id="drag_info_gpa">21 Million</div>
+                        </div>
+                        <div id="drag_info_schools">
+                            <h4># of Elite instituitions</h4>
+                            <div id="drag_info_schools">21 Million</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="fixedgroups" class="illustrationGroup">
+                <div class="illustrationbox" style='background-color: var(--black);'></div>
+                Fixed
+            </div>
+            <div id="draggroups" class="illustrationGroup">
+                <div class="illustrationbox"></div>
+                Drag by your self
+            </div>
+            <div class="buttonSection">
+                <button id="dragAnswer">Check My Answer</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="S11" class="hidden distributeVertical centerVertical">
+        <div class="width60 centerHorizontal">
+            <h2>Chapter 2: Higher Education System in the Mainland China</h2>
+            <div class="gap50">
+            </div>
+            <p>To understand inequality, we need to first understand how does Higher Education System work in the
+                Mainland China</p>
+
+        </div>
+        <div class="buttonSection">
+            <button onclick="toPage('S10')" class="BT"><i class="fa-solid fa-arrow-left"></i> Back </button>
+            <button onclick="toPage('scrolly-side')" class="BT">Next <i
+                    class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </section>
+
+
+
+    <section id='scrolly-side' class="hidden">
+        <div class='scrolly'>
+            <div class='sticky'>
+                <p id="selected-dropdown"></p>
+                <div class="annotationMap">
+                    <h5 id="chartTitle">List of Chinese administrative divisions by GDP per capita</h5>
+                    <div class="distributeHorizontal">
+                        <div class="annotationGroup">
+                            <div class="annotationbox" style='background-color: #E7DADA'></div>
+                            <div id="annotation1">
+                                10450 </div>
+                        </div>
+                        <div class="annotationGroup">
+                            <div class="annotationbox" style='background-color: #C5B0CA'></div>
+                            <div id="annotation2">
+                                12400
+                            </div>
+                        </div>
+                        <div class="annotationGroup">
+                            <div class="annotationbox" style='background-color: #AD92A8'></div>
+                            <div id="annotation3">
+                                30000</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="mapAbsoulteDiv" style="position:relative">
+                    <div id="visMap"></div>
+
+                </div>
+            </div>
+            <article>
+                <div id="map1" class='step mapTextContent' data-width='0%' data-index='0'>
+                    <h3>Unbalanced Economy Performance and Education Expenditure</h3>
+                    <div class="gap50"></div>
+                    <p>In China, the economic performances differ from provinces to provinces. The GDP/Capita
+                        provides a
+                        basic measure of the value of output per person.
+                        <br>The volume of education expenditure is directly correlated with the economic prowess
+                        of the
+                        region.
+                        <br>The education expenditure is unbalanced distributed between urban centres and the
+                        least
+                        developed
+                        regions. This applies both in the sense of the distribution of the national budget
+                        across
+                        regions,
+                        and also in terms of different regions’ varying abilities in raise local funding for
+                        education
+                        institutions.
+                    </p>
+                </div>
+                <div id="map2" class='step mapTextContent' data-width='20%' data-index='1'>
+                    <div class="gap50"></div>
+                    <h3>Unbalanced Higher Education Instituitions</h3>
+                    <div class="gap50"></div>
+                    <p>As you can see, the number of the Double Frst Class Universities strongly correlates with
+                        the
+                        education expenditures of each provinces</p>
+                </div>
+                <div id="map3" class='step mapTextContent' data-width='40%' data-index='2'>
+                    <div class="gap50"></div>
+                    <h3>Unbalanced Higher Education Instituitions</h3>
+                    <div class="gap50"></div>
+                    <p>Once we take in consideration of population, it looks more inbalanced.</p>
+                </div>
+                <div id="map4" class='step mapTextContent' data-width='60%' data-index='2'>
+                    <div class="gap50"></div>
+                    <h3>Unbalanced Enrollment Rates</h3>
+                    <div class="gap50"></div>
+                    <p>As we can see the enrollment rates are highly correlated with the number of Double First
+                        Class
+                        Universities in China. This is because the local governments and the universities they
+                        fund have
+                        an
+                        interest in prioritising the access of students with local “hukou” status; The higher
+                        the
+                        component
+                        of municipal finance is in the funding of a university, the higher the bargaining power
+                        the
+                        local
+                        government would have in resisting the national guidelines on opportunity equality.</p>
+                </div>
+                <div id="map5" class='step mapTextContent' data-width='80%' data-index='2'>
+                    <div class="gap50"></div>
+                    <h3>Elite Capture</h3>
+                    <div class="gap50"></div>
+                    <p>Some city/provinces might change, but the the economic performaces or enrollment rates
+                        are always
+                        high among these cities. Inequalities are instituted and defended by the privileged
+                        classes in
+                        order
+                        to maintain their exclusive hold over scare education resources, which is a source of
+                        their
+                        privileged status. Education in China may face a state of “elite capture”, where a
+                        select elite
+                        which benefit from current inequalities in the distribution of education resources use
+                        their
+                        power
+                        to defend their vested interest in maintaining the status quo</p>
+                </div>
+
+            </article>
+        </div>
+    </section>
+    <div class="tooltip"></div>
+
+    <script src="mapInteractive.js"></script>
+    <script>
+        map();
+        sectionPositions = [];
+        var startPos;
+        sections.each(function (d, i) {
+            var top = this.getBoundingClientRect().top;
+
+            if (i === 0) {
+                startPos = top;
+            }
+            sectionPositions.push(top - startPos);
+        });
+    </script>
+
+    <section id="p-12" class="hidden">
+        <!-- <div class="wrapper">
+            <nav class="tabs">
+                <div class="selector"></div>
+                <a href="#" class="active" id="toggleBar">Bar Graph</a>
+                <a href="#" id="toggleMap">Maps</a>
+            </nav>
+        </div> -->
+
+        <script src="bargraph.js"></script>
+        <!-- <script src="map.js"></script> -->
+        <script>
+            barGraph();
+            var tabs = $('.tabs');
+            var selector = $('.tabs').find('a').length;
+            //var selector = $(".tabs").find(".selector");
+            var activeItem = tabs.find('.active');
+            var activeWidth = activeItem.innerWidth();
+            $(".selector").css({
+                "left": activeItem.position.left + "px",
+                "width": activeWidth + "px"
+            });
+
+            $(".tabs").on("click", "a", function (e) {
+                if (this.id == 'toggleBar') {
+                    $('#vis').empty();
+                    barGraph();
+                } else {
+                    $('#vis').empty();
+                    map();
+                }
+                e.preventDefault();
+                $('.tabs a').removeClass("active");
+                $(this).addClass('active');
+                var activeWidth = $(this).innerWidth();
+                var itemPos = $(this).position();
+                $(".selector").css({
+                    "left": itemPos.left + "px",
+                    "width": activeWidth + "px"
+                });
+            });
+        </script>
+        <select id="d3-dropdown" class="dropbtn">
+            <option value="overall_rates">Overall Admission Rates</option>
+            <option value="tierone_rates">Tier 1 School Admission Rates</option>
+            <option value="tiertwo_rates">Tier 2 School Admission Rates</option>
+            <option value="tierthree_rates">Tier 3 School Admission Rates</option>
+            <option value="tierone_schools">Number of Tier 1 Schools</option>
+            <option value="population">Population</option>
+            <option value="schoolpop">Tier 1 Schools / Milion Students</option>
+        </select>
+        <p id="selected-dropdown"></p>
+        <div id="mapAbsoulteDiv" style="position:relative">
+
+            <div id="vis"></div>
+        </div>
+
+    </section>
+</body>
+<script type="text/javascript">
+
+</script>
+<script src="button.js"> </script>
+
+</html>
